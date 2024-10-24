@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <sdtlib.h>
+#include <stdlib.h>
 #include <fitsio.h>
 
 // TODO: ARREGLAR ENTRADAS Y SALIDA

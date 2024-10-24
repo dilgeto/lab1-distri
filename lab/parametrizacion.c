@@ -1,5 +1,5 @@
 #include <math.h>
-#include <sdtlib.h>
+#include <stdlib.h>
 #include "parametrizacion.h"
 
 double o_x(double t_x, double u_x) {
@@ -38,7 +38,7 @@ double delta(double k_x, double k_y, double o_x, double o_y) {
   return sqrt(resta_1 + resta_2);
 }
 
-double gamma(double theta, double k_x, double k_y, double o_x, double o_y) {
+double gammaCal(double theta, double k_x, double k_y, double o_x, double o_y) {
   double coef_1 = sin(abs(theta)) * (k_y - o_y);
   double coef_2 = cos(abs(theta)) * (k_x - o_x);
   return (coef_1 + coef_2);
