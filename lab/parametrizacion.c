@@ -1,4 +1,5 @@
 #include <math.h>
+#include <sdtlib.h>
 #include "parametrizacion.h"
 
 double o_x(double t_x, double u_x) {
@@ -41,4 +42,22 @@ double gamma(double theta, double k_x, double k_y, double o_x, double o_y) {
   double coef_1 = sin(abs(theta)) * (k_y - o_y);
   double coef_2 = cos(abs(theta)) * (k_x - o_x);
   return (coef_1 + coef_2);
+}
+
+double* w(double o_x, double o_y, double alpha, double beta, double theta) {
+  double w_x = o_x - (cos(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
+  double w_y = o_y - (sin(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
+  double* resultados = (double*) malloc(sizeof(double) * 2);
+  resultados[0] = w_x;
+  resultados[1] = w_y;
+  return resultados;
+}
+
+double* v(double o_x, double o_y, double alpha, double beta, double theta) {
+  double v_x = o_x + (cos(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
+  double v_y = o_y + (sin(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
+  double* resultados = (double*) malloc(sizeof(double) * 2);
+  resultados[0] = v_x;
+  resultados[1] = v_y;
+  return resultados;
 }
