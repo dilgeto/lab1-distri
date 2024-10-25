@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include <omp.h>
 #include "parametrizacion.h"
 #include "lectura.h"
 

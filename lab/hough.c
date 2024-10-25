@@ -1,8 +1,12 @@
 #include <stdlib.h>
+#include <omp.h>
 #include "parametrizacion.h"
+#include "nodo.h"
 
-// TODO: Implementar paralelismo
+// TODO: Decidir si se guardará en un arreglo o una lista
 int votacion(int** elipse, int largo) {
+  Nodo* new_elipses = inicializar_lista();
+
   // TODO: Verificar si cambiar el orden afecta la elipse (creo que sí)
   // Para cada t
   for (int t = 0 ; t < largo ; i++) {
@@ -24,11 +28,34 @@ int votacion(int** elipse, int largo) {
         }
         // Se calcula Delta y Gamma
         double delta = delta(elipse[k][0], elipse[k][1], oX, oY);
-        double gamma = gammaCal(theta, elipse[][], elipse[][], elipse[][], elipse[][]);
+        double gamma = gammaCal(theta, elipse[k][0], elipse[k][1], oX, oY);
+
         // Se calcula beta y discretiza
-        // TODO: Incluir el cálculo de Delta
         double beta = beta(alpha, delta, gamma);
         double beta_discreto = discretizacion();
+
+        // Se realiza la votación
+        voto[beta_discreto]++;
+
+        // Procedimiento
+
+
+      }
+
+
+    }
+  }
+}
+
+// TODO: Implementar paralelismo
+Elipse** votacion_paralela(int** elipse, int largo) {
+  int t, u, k;
+  omp_set_nested(1);
+  #pragma omp parallel num_threads(4)
+  {
+    #pragma omp for
+    {
+      for (t = 0 ; t < largo ; t++) {
       }
     }
   }
