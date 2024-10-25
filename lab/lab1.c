@@ -67,7 +67,11 @@ int main(int argc, char *argv[]) {
     return 0;
   }
   // TODO: Creación de lista de puntos bordes, llamar a leer_fits
+  double* puntos_bordes = leer_fits(imagen);
 
   // TODO: Discretización espacio parámetros (algo)
+  
+  // TODO: Algoritmo de Hough 
+
   return 0;
 }

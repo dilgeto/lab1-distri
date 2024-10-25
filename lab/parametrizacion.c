@@ -61,3 +61,8 @@ double* v(double o_x, double o_y, double alpha, double beta, double theta) {
   resultados[1] = v_y;
   return resultados;
 }
+
+// TODO: DISCRETIZACIÓN DE BETA
+double delta_beta(int size_elipse) {}
+
+int discretizacion() {}

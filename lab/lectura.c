@@ -5,7 +5,7 @@
 // TODO: ARREGLAR ENTRADAS Y SALIDA
 // TODO: Adaptar a paralelismo en el for
 // TODO: Cambiar ciclo for por discriminacion entre pixeles borde (255) y pixeles no borde(0)
-void leer_fits() {
+int* leer_fits(char* imagen) {
   fitsfile *fptr, *gptr; /* pointer to the FITS file; defined in fitsio.h */
   int status;
   long fpixel=1, naxis = 2, nelements, exposure;

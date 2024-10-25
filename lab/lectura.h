@@ -1,1 +1,1 @@
-void leer_fits();
+int* leer_fits(char* imagen);
