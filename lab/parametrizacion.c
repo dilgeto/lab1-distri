@@ -63,6 +63,15 @@ double* v(double o_x, double o_y, double alpha, double beta, double theta) {
 }
 
 // TODO: DISCRETIZACIÓN DE BETA
-double delta_beta(int size_elipse) {}
+// TODO: Verificar si la discretización funciona correctamente
+int delta_beta(int N, int B) {
+  return (N / (2 * B));
+}
 
-int discretizacion() {}
+int discretizacion(int delta_beta, double beta) {
+  double i = floor(beta / (double)delta_beta);
+  int i_entero = i;
+  int beta_i = i * delta_beta;
+
+  return beta_i;
+}

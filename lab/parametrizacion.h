@@ -7,5 +7,5 @@ double delta(double k_x, double k_y, double o_x, double o_y);
 double gammaCal(double theta, double k_x, double k_y, double o_x, double o_y);
 double* w(double o_x, double o_y, double alpha, double beta, double theta);
 double* v(double o_x, double o_y, double alpha, double beta, double theta);
-double delta_beta(int size_imagen);
-int discretizacion();
+double delta_beta(int N, int B);
+int discretizacion(int delta_beta, double beta);

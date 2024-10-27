@@ -11,7 +11,6 @@ Nodo* inicializar_lista() {
 
 Nodo* crear_nodo(Elipse* elipse) {
   Nodo* nodo = (Nodo*) malloc(sizeof(Nodo));
-  // TODO: Verificar si funciona esta implementación
   nodo->elipse = elipse;
   nodo->next = NULL;
 

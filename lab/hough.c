@@ -12,6 +12,9 @@ int votacion(int** elipse, int largo) {
   for (int t = 0 ; t < largo ; i++) {
     // Para cada u
     for (int u = 0 ; u < largo ; j++) {
+      if (u == t) {
+        continue;
+      }
       int* voto = (int*) calloc(largo, sizeof(int));
 
       // Se calculan los parámetros
@@ -47,16 +50,47 @@ int votacion(int** elipse, int largo) {
   }
 }
 
-// TODO: Implementar paralelismo
-Elipse** votacion_paralela(int** elipse, int largo) {
+// Implementación del algoritmo de Hough con paralelismo
+Nodo* votacion_paralela(int** elipse, int largo) {
   int t, u, k;
+  Nodo* new_elipses = inicializar_lista();
   omp_set_nested(1);
-  #pragma omp parallel num_threads(4)
-  {
-    #pragma omp for
+  for (t = 0 ; t < largo ; t++) {
+    #pragma omp parallel num_threads(2) private(u)
     {
-      for (t = 0 ; t < largo ; t++) {
-      }
+      #pragma omp for
+        for (u = 0 ; u < largo ; u++) {
+          if (u == t) {
+            continue;
+          }
+          int* voto = (int*) calloc(largo, sizeof(int));
+          
+          int oX, oY; double alpha, theta;
+          
+          // Calculas los parámetros
+          oX = o_x(elipse[t][0], elipse[u][0]);
+          oY = o_y(elipse[t][1], elipse[u][1]);
+          alpha = alpha(elipse[t][o], elipse[t][1], elipse[u][0], elipse[u][1]);
+          theta = alpha(elipse[t][o], elipse[t][1], elipse[u][0], elipse[u][1]);
+
+          #pragma omp parallel num_threads(2) private(k)
+          {
+            #pragma omp for
+              for(k = 0 ; k < largo ; k++) {
+                if (k == t || k == u) {
+                  continue;
+                }
+                
+                // Se calcula Delta y Gamma
+                double delta = delta(elipse[k][0], elipse[k][1], oX, oY);
+                double gamma = gammaCal(theta, elipse[k][0], elipse[k][1], oX, oY);
+                
+                // Se calcula beta y discretiza
+                double beta = beta(alpha, delta, gamma);
+                double beta_discreto = discretizacion();
+              }
+          }
+        }
     }
   }
 }
