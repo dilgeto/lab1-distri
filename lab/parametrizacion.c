@@ -62,6 +62,11 @@ double* v(double o_x, double o_y, double alpha, double beta, double theta) {
   return resultados;
 }
 
+// TODO: Comprobación largo de elipse
+int comprobación_elipse(int k_x, int k_y, int w_x, int w_y) {
+  double alpha = alpha(k_x, k_y, w_x, w_y);
+}
+
 // TODO: DISCRETIZACIÓN DE BETA
 // TODO: Verificar si la discretización funciona correctamente
 int delta_beta(int N, int B) {

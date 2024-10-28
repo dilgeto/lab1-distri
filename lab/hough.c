@@ -4,7 +4,7 @@
 #include "nodo.h"
 
 // TODO: Decidir si se guardará en un arreglo o una lista
-int votacion(int** elipse, int largo) {
+int votacion(int** puntos, int largo) {
   Nodo* new_elipses = inicializar_lista();
 
   // TODO: Verificar si cambiar el orden afecta la elipse (creo que sí)
@@ -19,10 +19,10 @@ int votacion(int** elipse, int largo) {
 
       // Se calculan los parámetros
       double oX, oY, alpha, theta;
-      oX = o_x(elipse[t][0], elipse[u][0]);
-      oY = o_y(elipse[t][1], elipse[u][1]);
-      alpha = alpha(elipse[t][o], elipse[t][1], elipse[u][0], elipse[u][1]);
-      theta = alpha(elipse[t][o], elipse[t][1], elipse[u][0], elipse[u][1]);
+      oX = o_x(puntos[t][0], puntos[u][0]);
+      oY = o_y(puntos[t][1], puntos[u][1]);
+      alpha = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
+      theta = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
 
       // Para cada k
       for (int k = 0 ; k < largo ; k++) {
@@ -30,8 +30,8 @@ int votacion(int** elipse, int largo) {
           continue;
         }
         // Se calcula Delta y Gamma
-        double delta = delta(elipse[k][0], elipse[k][1], oX, oY);
-        double gamma = gammaCal(theta, elipse[k][0], elipse[k][1], oX, oY);
+        double delta = delta(puntos[k][0], puntos[k][1], oX, oY);
+        double gamma = gammaCal(theta, puntos[k][0], puntos[k][1], oX, oY);
 
         // Se calcula beta y discretiza
         double beta = beta(alpha, delta, gamma);
@@ -51,7 +51,8 @@ int votacion(int** elipse, int largo) {
 }
 
 // Implementación del algoritmo de Hough con paralelismo
-Nodo* votacion_paralela(int** elipse, int largo) {
+// TODO: Incluir cantidad de hebras para ambos niveles como parámetros
+Nodo* votacion_paralela(int** puntos, int largo) {
   int t, u, k;
   Nodo* new_elipses = inicializar_lista();
   omp_set_nested(1);
@@ -63,15 +64,15 @@ Nodo* votacion_paralela(int** elipse, int largo) {
           if (u == t) {
             continue;
           }
-          int* voto = (int*) calloc(largo, sizeof(int));
+          int* voto = (int*) calloc(0, sizeof(int));
           
           int oX, oY; double alpha, theta;
           
           // Calculas los parámetros
-          oX = o_x(elipse[t][0], elipse[u][0]);
-          oY = o_y(elipse[t][1], elipse[u][1]);
-          alpha = alpha(elipse[t][o], elipse[t][1], elipse[u][0], elipse[u][1]);
-          theta = alpha(elipse[t][o], elipse[t][1], elipse[u][0], elipse[u][1]);
+          oX = o_x(puntos[t][0], puntos[u][0]);
+          oY = o_y(puntos[t][1], puntos[u][1]);
+          alpha = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
+          theta = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
 
           #pragma omp parallel num_threads(2) private(k)
           {
@@ -82,8 +83,8 @@ Nodo* votacion_paralela(int** elipse, int largo) {
                 }
                 
                 // Se calcula Delta y Gamma
-                double delta = delta(elipse[k][0], elipse[k][1], oX, oY);
-                double gamma = gammaCal(theta, elipse[k][0], elipse[k][1], oX, oY);
+                double delta = delta(puntos[k][0], puntos[k][1], oX, oY);
+                double gamma = gammaCal(theta, puntos[k][0], puntos[k][1], oX, oY);
                 
                 // Se calcula beta y discretiza
                 double beta = beta(alpha, delta, gamma);
