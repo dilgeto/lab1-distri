@@ -3,11 +3,12 @@
 #include <getopt.h>
 #include "parametrizacion.h"
 #include "lectura.h"
+#include "nodo.h"
 
 int main(int argc, char *argv[]) {
   int opt;
   char *imagen = NULL;
-  double alpha = 0.0;
+  double a = 0.0;
   double r = 0.0;
   int b = 0;
   int u = 0;
@@ -19,7 +20,7 @@ int main(int argc, char *argv[]) {
         imagen = optarg;
         break;
       case 'a':
-        a = strtod(optarg);
+        a = strod(optarg);
         break;
       case 'r':
         r = strod(optarg);
@@ -41,7 +42,7 @@ int main(int argc, char *argv[]) {
     printf("Debe incluir una entrada por medio de -i\n");
     return 0;
 
-  } else if (alpha == 0.0) {
+  } else if (a == 0.0) {
     printf("Incluya la bandera -a y debe ser mayor que 0.0\n");
     return 0;
 
@@ -67,6 +68,6 @@ int main(int argc, char *argv[]) {
   // TODO: Discretización espacio parámetros (algo)
   
   // TODO: Algoritmo de Hough 
-  Nodo* votacion_paralela(info_img->pixeles_borde, info_img->ancho, info_img->largo, info_img->largo_arreglo, u, d)
+  Nodo* votacion_paralela(info_img->pixeles_borde, info_img->ancho, info_img->largo, info_img->largo_arreglo, u, d,a);
   return 0;
 }
