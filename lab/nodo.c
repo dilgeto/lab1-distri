@@ -1,10 +1,10 @@
 #include <stdlib.h>
-#include "elipse.h"
+#include "nodo.h"
 
 Nodo* inicializar_lista() {
   Nodo* lista = (Nodo*) malloc(sizeof(Nodo));
-  nodo->elipse = NULL;
-  nodo->next = NULL;
+  lista->elipse = NULL;
+  lista->next = NULL;
   
   return lista;
 }

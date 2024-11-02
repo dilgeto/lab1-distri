@@ -1,12 +1,14 @@
-typedef struct {
+#include "elipse.h"
+
+typedef struct nodo {
   Elipse* elipse;
-  Nodo* next;
+  struct nodo* next;
 }Nodo;
 
-typedef struct {
+typedef struct voto {
   double beta;
   int total_votos;
-  Voto* next;
+  struct voto* next;
 }Voto;
 
 Nodo* inicializar_lista();

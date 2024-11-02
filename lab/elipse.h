@@ -1,4 +1,4 @@
-typedef struct {
+typedef struct elipse {
   int o_x;
   int o_y;
   double alpha;

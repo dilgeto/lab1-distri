@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fitsio.h>
-
+#include "lectura.h"
 
 Data* leer_fits(char* imagen) {
   fitsfile *fptr, *gptr; /* pointer to the FITS file; defined in fitsio.h */
@@ -10,7 +10,7 @@ Data* leer_fits(char* imagen) {
   long naxes[2];
 
   status = 0; /* initialize status before calling fitsio routines */
-  fits_open_file(&fptr, argv[1], READONLY, &status);
+  fits_open_file(&fptr, imagen, READONLY, &status);
   
   fits_get_img_size(fptr, 2, naxes, &status);
   printf("naxes[0] = %ld\n", naxes[0]);
@@ -28,15 +28,15 @@ Data* leer_fits(char* imagen) {
     if (myimage[i] == 255.0)
       count++;
   }
-  Pixel* pixeles_borde[count]
+  Pixel* pixeles_borde[count];
   int count_1 = 0;
-  ;
-  for (i = 0; i < naxes[1]; i++){
-    for (j = 0; j < naxes[0]){
-        if(myimage[y * naxes[0] + x] == 255.0){
-                pixeles_borde[count_1] = crear_pixel(x,y);
-                count_1++
-            }
+
+  for (i = 0 ; i < naxes[1] ; i++) {
+    for (j = 0 ; j < naxes[0] ; j++) {
+      if (myimage[j * naxes[0] + i] == 255.0) {
+        pixeles_borde[count_1] = crear_pixel(i,j);
+        count_1++;
+      }
     }
   }
   Data* info = (Data*) malloc(sizeof(Data));
@@ -55,7 +55,7 @@ Data* leer_fits_paralelo(char* imagen) {
   long naxes[2];
 
   status = 0; /* initialize status before calling fitsio routines */
-  fits_open_file(&fptr, argv[1], READONLY, &status);
+  fits_open_file(&fptr, imagen, READONLY, &status);
 
   fits_get_img_size(fptr, 2, naxes, &status);
   printf("naxes[0] = %ld\n", naxes[0]);
@@ -70,18 +70,19 @@ Data* leer_fits_paralelo(char* imagen) {
   int count = 0;
 
   for (i = 0 ; i < naxes[0]*naxes[1] ; i++) {
-    if (myimage[i] == 255.0)
+    if (myimage[i] == 255.0) {
       count++;
+    }
   }
-  Pixel* pixeles_borde[count]
+  Pixel* pixeles_borde[count];
   int count_1 = 0;
-  ;
-  for (i = 0; i < naxes[1]; i++){
-    for (j = 0; j < naxes[0]){
-        if(myimage[y * naxes[0] + x] == 255.0){
-                pixeles_borde[count_1] = crear_pixel(x,y);
-                count_1++
-            }
+
+  for (i = 0 ; i < naxes[1] ; i++) {
+    for (j = 0 ; j < naxes[0] ; j++) {
+      if(myimage[j * naxes[0] + i] == 255.0) {
+        pixeles_borde[count_1] = crear_pixel(i,j);
+        count_1++;
+      }
     }
   }
   Data* info = (Data*) malloc(sizeof(Data));
@@ -94,7 +95,7 @@ Data* leer_fits_paralelo(char* imagen) {
 }
 
 Pixel* crear_pixel(int x, int y){
-    Pixel* pix = (Pixel*) malloc(sizeof(Pixel))
+    Pixel* pix = (Pixel*) malloc(sizeof(Pixel));
     pix->x = x;
     pix->y = y;
     return pix;
