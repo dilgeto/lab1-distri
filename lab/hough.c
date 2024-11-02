@@ -3,11 +3,8 @@
 #include "parametrizacion.h"
 #include "nodo.h"
 
-// TODO: Decidir si se guardará en un arreglo o una lista
-int votacion(int** puntos, int largo) {
+Nodo* votacion(Pixel* pixeles_borde, long ancho, long largo, int largo) {
   Nodo* new_elipses = inicializar_lista();
-
-  // TODO: Verificar si cambiar el orden afecta la elipse (creo que sí)
   // Para cada t
   for (int t = 0 ; t < largo ; i++) {
     // Para cada u
@@ -19,10 +16,10 @@ int votacion(int** puntos, int largo) {
 
       // Se calculan los parámetros
       double oX, oY, alpha, theta;
-      oX = o_x(puntos[t][0], puntos[u][0]);
-      oY = o_y(puntos[t][1], puntos[u][1]);
-      alpha = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
-      theta = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
+      oX = o_x(pixeles_borde[t]->x, pixeles_borde[u]->x);
+      oY = o_y(pixeles_borde[t]->y, pixeles_borde[u]->y);
+      alpha = alpha(pixeles_borde[t]->x, pixeles_borde[t]->y, pixeles_borde[u]->x, pixeles_borde[u]->y);
+      theta = alpha(pixeles_borde[t]->x, pixeles_borde[t]->y, pixeles_borde[u]->x, pixeles_borde[u]->y);
 
       // Para cada k
       for (int k = 0 ; k < largo ; k++) {
@@ -30,8 +27,8 @@ int votacion(int** puntos, int largo) {
           continue;
         }
         // Se calcula Delta y Gamma
-        double delta = delta(puntos[k][0], puntos[k][1], oX, oY);
-        double gamma = gammaCal(theta, puntos[k][0], puntos[k][1], oX, oY);
+        double delta = delta(pixeles_borde[k]->x, pixeles_borde[k]->y, oX, oY);
+        double gamma = gammaCal(theta, pixeles_borde[k]->x, pixeles_borde[k]->y, oX, oY);
 
         // Se calcula beta y discretiza
         double beta = beta(alpha, delta, gamma);
@@ -51,41 +48,38 @@ int votacion(int** puntos, int largo) {
 }
 
 // Implementación del algoritmo de Hough con paralelismo
-// TODO: Incluir cantidad de hebras para ambos niveles como parámetros
-Nodo* votacion_paralela(int** puntos, int largo) {
+Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo, int largo,int hebras_1, int hebras_2) {
   int t, u, k;
   Nodo* new_elipses = inicializar_lista();
   omp_set_nested(1);
   for (t = 0 ; t < largo ; t++) {
-    #pragma omp parallel num_threads(2) private(u)
+    #pragma omp parallel num_threads(hebras_1) private(u)
     {
       #pragma omp for
-        for (u = 0 ; u < largo ; u++) {
+        for (int u = 0 ; u < largo ; j++) {
           if (u == t) {
             continue;
           }
-          int* voto = (int*) calloc(0, sizeof(int));
-          
-          int oX, oY; double alpha, theta;
-          
-          // Calculas los parámetros
-          oX = o_x(puntos[t][0], puntos[u][0]);
-          oY = o_y(puntos[t][1], puntos[u][1]);
-          alpha = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
-          theta = alpha(puntos[t][o], puntos[t][1], puntos[u][0], puntos[u][1]);
+          int* voto = (int*) calloc(largo, sizeof(int));
 
-          #pragma omp parallel num_threads(2) private(k)
+          // Se calculan los parámetros
+          double oX, oY, alpha, theta;
+          oX = o_x(pixeles_borde[t]->x, pixeles_borde[u]->x);
+          oY = o_y(pixeles_borde[t]->y, pixeles_borde[u]->y);
+          alpha = alpha(pixeles_borde[t]->x, pixeles_borde[t]->y, pixeles_borde[u]->x, pixeles_borde[u]->y);
+          theta = alpha(pixeles_borde[t]->x, pixeles_borde[t]->y, pixeles_borde[u]->x, pixeles_borde[u]->y);
+
+          #pragma omp parallel num_threads(hebras_2) private(k)
           {
             #pragma omp for
-              for(k = 0 ; k < largo ; k++) {
+              for (int k = 0 ; k < largo ; k++) {
                 if (k == t || k == u) {
-                  continue;
+                   continue;
                 }
-                
                 // Se calcula Delta y Gamma
-                double delta = delta(puntos[k][0], puntos[k][1], oX, oY);
-                double gamma = gammaCal(theta, puntos[k][0], puntos[k][1], oX, oY);
-                
+                double delta = delta(pixeles_borde[k]->x, pixeles_borde[k]->y, oX, oY);
+                double gamma = gammaCal(theta, pixeles_borde[k]->x, pixeles_borde[k]->y, oX, oY);
+
                 // Se calcula beta y discretiza
                 double beta = beta(alpha, delta, gamma);
                 double beta_discreto = discretizacion();

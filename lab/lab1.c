@@ -37,22 +37,18 @@ int main(int argc, char *argv[]) {
   }
 
   // Casos de fallo
-  // TODO: Añadir el caso en que el archivo no exista.
   if (imagen == NULL) {
     printf("Debe incluir una entrada por medio de -i\n");
     return 0;
 
-    //TODO: Verificar si el valor de alpha puede ser 0.
   } else if (alpha == 0.0) {
     printf("Incluya la bandera -a y debe ser mayor que 0.0\n");
     return 0;
 
-    // TODO: Verificar si el porcentaje puede ser 0.
   } else if (r == 0.0) {
     printf("Incluya la bandera -r y debe ser mayor que 0.0\n");
     return 0;
 
-    // TODO: Verificar si beta puede ser 0.
   } else if (b == 0) {
     printf("Incluya la bandera -b y debe ser mayor que 0\n");
     return 0;
@@ -65,12 +61,12 @@ int main(int argc, char *argv[]) {
     printf("Incluya la bandera -d y debe ser mayor que 0\n");
     return 0;
   }
-  // TODO: Creación de lista de puntos bordes, llamar a leer_fits
-  double* puntos_bordes = leer_fits(imagen);
+  // TODO: Llamar a leer_fits(Faltan detalles dentro de leer_fits)
+  Data* info_img = leer_fits(imagen);
 
   // TODO: Discretización espacio parámetros (algo)
   
   // TODO: Algoritmo de Hough 
-
+  Nodo* votacion_paralela(info_img->pixeles_borde, info_img->ancho, info_img->largo, info_img->largo_arreglo, u, d)
   return 0;
 }
