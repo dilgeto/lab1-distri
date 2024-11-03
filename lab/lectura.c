@@ -13,13 +13,9 @@ Data* leer_fits(char* imagen) {
   fits_open_file(&fptr, imagen, READONLY, &status);
   
   fits_get_img_size(fptr, 2, naxes, &status);
-  printf("naxes[0] = %ld\n", naxes[0]);
   double *myimage = (double *) malloc(naxes[0]*naxes[1]*sizeof(double));
 
-  printf("size = (%ld, %ld)\n", naxes[1], naxes[0]);
-
   fits_read_img(fptr, TDOUBLE, fpixel, naxes[0]*naxes[1], NULL, myimage, NULL, &status);
-  printf("%.10e \n", myimage[1024*512+128]);
   
   int i,j;
   int count = 0;
@@ -61,13 +57,9 @@ Data* leer_fits_paralelo(char* imagen) {
   fits_open_file(&fptr, imagen, READONLY, &status);
 
   fits_get_img_size(fptr, 2, naxes, &status);
-  printf("naxes[0] = %ld\n", naxes[0]);
   double *myimage = (double *) malloc(naxes[0]*naxes[1]*sizeof(double));
 
-  printf("size = (%ld, %ld)\n", naxes[1], naxes[0]);
-
   fits_read_img(fptr, TDOUBLE, fpixel, naxes[0]*naxes[1], NULL, myimage, NULL, &status);
-  printf("%.10e \n", myimage[1024*512+128]);
 
   int i,j;
   int count = 0;

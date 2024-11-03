@@ -14,7 +14,7 @@ int main(int argc, char *argv[]) {
   int u = 0;
   int d = 0;
 
-  while ((opt = getopt(argc, argv, "i:a:r:b:u:d")) != 1) {
+  while ((opt = getopt(argc, argv, "i:a:r:b:u:d:")) != -1) {
     switch (opt) {
       case 'i':
         imagen = optarg;
@@ -62,6 +62,7 @@ int main(int argc, char *argv[]) {
     printf("Incluya la bandera -d y debe ser mayor que 0\n");
     return 0;
   }
+
   // TODO: Llamar a leer_fits(Faltan detalles dentro de leer_fits)
   Data* info_img = leer_fits(imagen);
   Pixel* pixeles_borde = info_img->pixeles_borde;
@@ -71,6 +72,7 @@ int main(int argc, char *argv[]) {
   
   // TODO: Algoritmo de Hough 
   Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
+  printf("funcando\n");
   while(lista_elipses->next != NULL){
     printf("o_x: %d, o_y: %d, alpha: %f, theta: %f, beta_i: %d", lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->theta,lista_elipses->elipse->beta_i);
   }
