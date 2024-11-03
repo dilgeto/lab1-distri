@@ -70,6 +70,10 @@ int main(int argc, char *argv[]) {
   int largo_arreglo = info_img->largo_arreglo;
   
   // TODO: Algoritmo de Hough 
-  Nodo* votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
+  Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
+  while(lista_elipses->next != NULL){
+    printf("o_x: %d, o_y: %d, alpha: %f, theta: %f, beta_i: %d", lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->theta,lista_elipses->elipse->beta_i);
+  }
+
   return 0;
 }

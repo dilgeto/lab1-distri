@@ -123,4 +123,5 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
         }
     }
   }
+  return new_elipses;
 }
