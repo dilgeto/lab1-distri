@@ -76,9 +76,11 @@ int main(int argc, char *argv[]) {
   Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
   printf("funcando\n");
   
+  int i = 0;
   while(lista_elipses->next != NULL){
-    printf("%f %f %f %f %d\n", lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->theta,lista_elipses->elipse->beta_i);
+    printf("%d: %f %f %f %d %f\n", i, lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->beta_i,lista_elipses->elipse->theta);
     lista_elipses = lista_elipses->next;
+    i++;
   }
 
   return 0;
