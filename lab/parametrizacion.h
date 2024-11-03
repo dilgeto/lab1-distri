@@ -7,5 +7,5 @@ double calcular_delta(double k_x, double k_y, double o_x, double o_y);
 double calcular_gamma(double theta, double k_x, double k_y, double o_x, double o_y);
 double* w(double o_x, double o_y, double alpha, double beta, double theta);
 double* v(double o_x, double o_y, double alpha, double beta, double theta);
-int delta_beta(int N, int B);
-int discretizacion(int delta_beta, double beta);
+double calcular_delta_beta(int N, int B);
+int discretizacion(double delta_beta, double beta);

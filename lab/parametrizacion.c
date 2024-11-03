@@ -69,18 +69,13 @@ int comprobacion_elipse(int k_x, int k_y, int w_x, int w_y) {
 }
 */
 
-// TODO: DISCRETIZACIÓN DE BETA
-// TODO: Verificar si la discretización funciona correctamente
-int delta_beta(int N, int B) {
+double calcular_delta_beta(int N, int B) {
   return (N / (2 * B));
 }
 
-/*
-int discretizacion(int delta_beta, double beta) {
-  double i = floor(beta / (double)delta_beta);
-  int i_entero = i;
-  int beta_i = i * delta_beta;
 
-  return beta_i;
+int discretizacion(double delta_beta, double beta) {
+  int i = floor(beta / delta_beta);
+  return i;
 }
-*/
+

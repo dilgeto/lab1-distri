@@ -64,10 +64,12 @@ int main(int argc, char *argv[]) {
   }
   // TODO: Llamar a leer_fits(Faltan detalles dentro de leer_fits)
   Data* info_img = leer_fits(imagen);
-
-  // TODO: Discretización espacio parámetros (algo)
+  Pixel* pixeles_borde = info_img->pixeles_borde;
+  long ancho = info_img->ancho;
+  long largo = info_img->largo;
+  int largo_arreglo = info_img->largo_arreglo;
   
   // TODO: Algoritmo de Hough 
-  Nodo* votacion_paralela(info_img->pixeles_borde, info_img->ancho, info_img->largo, info_img->largo_arreglo, u, d,a);
+  Nodo* votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
   return 0;
 }
