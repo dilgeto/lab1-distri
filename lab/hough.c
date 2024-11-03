@@ -108,8 +108,12 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 }
                 double gamma = calcular_gamma(theta, pixeles_borde[k].x, pixeles_borde[k].y, oX, oY);
 
-                // Se calcula beta y discretiza
+                // Se calcula beta, se comprueba si es valido y se discretiza
                 double beta = calcular_beta(alpha, delta, gamma);
+                int comprobacion = comprobacion_elipse(oX, oY, theta, alpha, beta,pixeles_borde[k].x, pixeles_borde[k].y);
+                if(comprobacion == 0){
+                  continue;
+                }
                 double delta_beta = calcular_delta_beta(largo_img, betas);
                 int beta_discreto = discretizacion(delta_beta, beta);
                 // Se realiza la votación

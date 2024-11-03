@@ -44,7 +44,7 @@ double calcular_gamma(double theta, double k_x, double k_y, double o_x, double o
   return (coef_1 + coef_2);
 }
 
-double* w(double o_x, double o_y, double alpha, double beta, double theta) {
+double* calcular_w(double o_x, double o_y, double alpha, double beta, double theta) {
   double w_x = o_x - (cos(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
   double w_y = o_y - (sin(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
   double* resultados = (double*) malloc(sizeof(double) * 2);
@@ -53,7 +53,7 @@ double* w(double o_x, double o_y, double alpha, double beta, double theta) {
   return resultados;
 }
 
-double* v(double o_x, double o_y, double alpha, double beta, double theta) {
+double* calcular_v(double o_x, double o_y, double alpha, double beta, double theta) {
   double v_x = o_x + (cos(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
   double v_y = o_y + (sin(abs(theta)) * sqrt(((alpha)*(alpha)) - ((beta)*(beta))));
   double* resultados = (double*) malloc(sizeof(double) * 2);
@@ -62,12 +62,18 @@ double* v(double o_x, double o_y, double alpha, double beta, double theta) {
   return resultados;
 }
 
-// TODO: Comprobación largo de elipse
-/*
-int comprobacion_elipse(int k_x, int k_y, int w_x, int w_y) {
-  double alpha = alpha(k_x, k_y, w_x, w_y);
+int comprobacion_elipse(double o_x, double o_y, double theta, double alpha, double beta, int k_x, int k_y) {
+  double* w = calcular_w(o_x, o_y, alpha, beta, theta);
+  double* v = calcular_v(o_x, o_y, alpha, beta, theta);
+  double largo_w = sqrt((k_y-w[1])*(k_y-w[1])+(k_x-w[0])*(k_x-w[0]));
+  double largo_v = sqrt((k_y-v[1])*(k_y-v[1])+(k_x-v[0])*(k_x-v[0]));
+  double largo_segmento = largo_w + largo_v;
+  if(largo_segmento == 2*alpha){
+    return 1;
+  }else{
+    return 0;
+  }
 }
-*/
 
 double calcular_delta_beta(int N, int B) {
   return (N / (2 * B));
