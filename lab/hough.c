@@ -120,14 +120,20 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 voto[beta_discreto]++;
               }
             double delta_beta_1 = calcular_delta_beta(largo_img, betas);
+            int max = 0;
+            int index_max = -1;
             for(int i = 0 ; i < betas ; i++){
               if(voto[i] < porcentaje*largo || voto[i] <= 0){
                 continue;
               }
-              double beta_i = (i + 1) * delta_beta_1;
-              Elipse* elipse = crear_elipse(oX, oY, alpha, theta, beta_i);
-              new_elipses = agregar_cabeza(new_elipses, elipse);
+              if(max < voto[i]){
+                max = voto[i];
+                index_max = i;
+              }
             }
+            double beta_i = (index_max + 1) * delta_beta_1;
+            Elipse* elipse = crear_elipse(oX, oY, alpha, theta, beta_i);
+            new_elipses = agregar_cabeza(new_elipses, elipse);
           }
         }
     }
