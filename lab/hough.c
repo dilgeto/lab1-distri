@@ -77,7 +77,6 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
     {
       #pragma omp for
         for (u = 0 ; u < largo ; u++) {
-          printf("uwu\n");
           if (u == t) {
             continue;
           }
@@ -97,7 +96,6 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
           {
             #pragma omp for
               for (k = 0 ; k < largo ; k++) {
-                printf("owo\n");
                 if (k == t || k == u) {
                    continue;
                 }
@@ -117,15 +115,9 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 double delta_beta = calcular_delta_beta(largo_img, betas);
                 int beta_discreto = discretizacion(delta_beta, beta);
                 // Se realiza la votación
-                printf("iwi\n");
                 //printf("beta_discreto: %d\n", beta_discreto);
                 //printf("delta_beta: %f\n", delta_beta);
-                printf("theta: %f\n", theta);
-                printf("ox: %f, oy: %f\n", oX, oY);
-                printf("gamma: %f\n", gamma);
-                printf("beta: %f\n", beta);
                 voto[beta_discreto]++;
-                printf("ewe\n");
               }
             double delta_beta_1 = calcular_delta_beta(largo_img, betas);
             for(int i = 0 ; i < betas ; i++){
@@ -134,12 +126,12 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
               }
               double beta_i = (i + 1) * delta_beta_1;
               Elipse* elipse = crear_elipse(oX, oY, alpha, theta, beta_i);
-              printf("o_x: %f, o_y: %f, alpha: %f, theta: %f, beta_i: %f\n", oX, oY, alpha, theta, beta_i);
               new_elipses = agregar_cabeza(new_elipses, elipse);
             }
           }
         }
     }
   }
+
   return new_elipses;
 }

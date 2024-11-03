@@ -1,3 +1,5 @@
+#ifndef LECTURA_H
+#define LECTURA_H
 typedef struct pixel {
   int x;
   int y;
@@ -13,3 +15,5 @@ typedef struct data {
 Data* leer_fits(char* imagen);
 Data* leer_fits_paralelo(char* imagen);
 Pixel crear_pixel(int x, int y);
+
+#endif /* LECTURA_H */ 

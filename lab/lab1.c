@@ -4,6 +4,7 @@
 #include "parametrizacion.h"
 #include "lectura.h"
 #include "nodo.h"
+#include "hough.h"
 
 int main(int argc, char *argv[]) {
   int opt;
@@ -74,8 +75,10 @@ int main(int argc, char *argv[]) {
   printf("prefuncado\n");
   Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
   printf("funcando\n");
+  
   while(lista_elipses->next != NULL){
-    printf("o_x: %d, o_y: %d, alpha: %f, theta: %f, beta_i: %d", lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->theta,lista_elipses->elipse->beta_i);
+    printf("%f %f %f %f %d\n", lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->theta,lista_elipses->elipse->beta_i);
+    lista_elipses = lista_elipses->next;
   }
 
   return 0;

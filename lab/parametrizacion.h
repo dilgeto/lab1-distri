@@ -1,3 +1,6 @@
+#ifndef PARAMETRIZACION_H
+#define PARAMETRIZACION_H
+
 double o_x(double t_x, double u_x);
 double o_y(double t_y, double u_y);
 double calcular_alpha(double t_x, double t_y, double u_x, double u_y);
@@ -10,3 +13,5 @@ double* calcular_v(double o_x, double o_y, double alpha, double beta, double the
 int comprobacion_elipse(double o_x, double o_y, double theta, double alpha, double beta, int k_x, int k_y);
 double calcular_delta_beta(int N, int B);
 int discretizacion(double delta_beta, double beta);
+
+#endif /* PARAMETRIZACION_H */
