@@ -71,6 +71,7 @@ int main(int argc, char *argv[]) {
   int largo_arreglo = info_img->largo_arreglo;
   
   // TODO: Algoritmo de Hough 
+  printf("prefuncado\n");
   Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
   printf("funcando\n");
   while(lista_elipses->next != NULL){

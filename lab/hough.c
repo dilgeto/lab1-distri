@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <omp.h>
 #include "parametrizacion.h"
 #include "nodo.h"
@@ -68,6 +69,7 @@ Nodo* votacion(Pixel* pixeles_borde, long ancho, long largo_img, int largo, doub
 Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int largo,int hebras_1, int hebras_2, double min_alpha, double porcentaje, int betas) {
   int t, u, k;
   Nodo* new_elipses = inicializar_lista();
+  printf("genero lista\n");
   omp_set_nested(1);
   for (t = 0 ; t < largo ; t++) {
     #pragma omp parallel num_threads(hebras_1) private(u)
@@ -111,12 +113,13 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 voto[beta_discreto]++;
               }
             double delta_beta_1 = calcular_delta_beta(largo_img, betas);
-            for(int i = 0 ; i < betas; i++){
+            for(int i = 0 ; i < betas ; i++){
               if(voto[i] < porcentaje*largo || voto[i] <= 0){
                 continue;
               }
-              double beta_i = i * delta_beta_1;
+              double beta_i = (i + 1) * delta_beta_1;
               Elipse* elipse = crear_elipse(oX, oY, alpha, theta, beta_i);
+              printf("o_x: %f, o_y: %f, alpha: %f, theta: %f, beta_i: %f\n", oX, oY, alpha, theta, beta_i);
               new_elipses = agregar_cabeza(new_elipses, elipse);
             }
           }
