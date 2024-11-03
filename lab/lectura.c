@@ -28,7 +28,10 @@ Data* leer_fits(char* imagen) {
     if (myimage[i] == 255.0)
       count++;
   }
-  Pixel* pixeles_borde[count];
+  
+  //  Pixel* pixeles_borde[count];
+  Pixel* pixeles_borde = (Pixel*) malloc(sizeof(Pixel) * count);
+
   int count_1 = 0;
 
   for (i = 0 ; i < naxes[1] ; i++) {
@@ -74,7 +77,8 @@ Data* leer_fits_paralelo(char* imagen) {
       count++;
     }
   }
-  Pixel* pixeles_borde[count];
+  //Pixel* pixeles_borde[count];
+  Pixel* pixeles_borde = (Pixel*) malloc(sizeof(Pixel) * count);
   int count_1 = 0;
 
   for (i = 0 ; i < naxes[1] ; i++) {
@@ -94,9 +98,9 @@ Data* leer_fits_paralelo(char* imagen) {
   return info;
 }
 
-Pixel* crear_pixel(int x, int y){
-    Pixel* pix = (Pixel*) malloc(sizeof(Pixel));
-    pix->x = x;
-    pix->y = y;
+Pixel crear_pixel(int x, int y){
+    Pixel pix;
+    pix.x = x;
+    pix.y = y;
     return pix;
 }

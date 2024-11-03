@@ -20,10 +20,10 @@ int main(int argc, char *argv[]) {
         imagen = optarg;
         break;
       case 'a':
-        a = strod(optarg);
+        a = strtod(optarg, NULL);
         break;
       case 'r':
-        r = strod(optarg);
+        r = strtod(optarg, NULL);
         break;
       case 'b':
         b = atoi(optarg);
