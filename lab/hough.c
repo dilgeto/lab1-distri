@@ -6,6 +6,7 @@
 #include "lectura.h"
 #include "elipse.h"
 
+/*
 Nodo* votacion(Pixel* pixeles_borde, long ancho, long largo_img, int largo, double min_alpha, double porcentaje, int betas) {
   Nodo* new_elipses = inicializar_lista();
   // Para cada t
@@ -64,18 +65,19 @@ Nodo* votacion(Pixel* pixeles_borde, long ancho, long largo_img, int largo, doub
     }
   }
 }
+*/
 
 // Implementación del algoritmo de Hough con paralelismo
 Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int largo,int hebras_1, int hebras_2, double min_alpha, double porcentaje, int betas) {
   int t, u, k;
   Nodo* new_elipses = inicializar_lista();
-  printf("genero lista\n");
   omp_set_nested(1);
   for (t = 0 ; t < largo ; t++) {
     #pragma omp parallel num_threads(hebras_1) private(u)
     {
       #pragma omp for
         for (u = 0 ; u < largo ; u++) {
+          printf("uwu\n");
           if (u == t) {
             continue;
           }
@@ -95,6 +97,7 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
           {
             #pragma omp for
               for (k = 0 ; k < largo ; k++) {
+                printf("owo\n");
                 if (k == t || k == u) {
                    continue;
                 }
@@ -110,7 +113,15 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 double delta_beta = calcular_delta_beta(largo_img, betas);
                 int beta_discreto = discretizacion(delta_beta, beta);
                 // Se realiza la votación
+                printf("iwi\n");
+                //printf("beta_discreto: %d\n", beta_discreto);
+                //printf("delta_beta: %f\n", delta_beta);
+                printf("theta: %f\n", theta);
+                printf("ox: %f, oy: %f\n", oX, oY);
+                printf("gamma: %f\n", gamma);
+                printf("beta: %f\n", beta);
                 voto[beta_discreto]++;
+                printf("ewe\n");
               }
             double delta_beta_1 = calcular_delta_beta(largo_img, betas);
             for(int i = 0 ; i < betas ; i++){
