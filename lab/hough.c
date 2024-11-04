@@ -134,6 +134,7 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
               new_elipses = agregar_cabeza(new_elipses, elipse);
             }
           }
+          free(voto);
         }
     }
   }
