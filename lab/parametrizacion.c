@@ -19,7 +19,7 @@ double calcular_alpha(double t_x, double t_y, double u_x, double u_y) {
 double calcular_theta(double t_x, double t_y, double u_x, double u_y) {
   double y = u_y - t_y;
   double x = u_x - t_x;
-  return atan(y / x);
+  return atan2(y, x);
 }
 
 double calcular_beta(double alpha, double delta, double gamma) {
@@ -28,7 +28,7 @@ double calcular_beta(double alpha, double delta, double gamma) {
   num2 = (alpha * alpha) * (gamma * gamma);
   den1 = alpha * alpha;
   den2 = gamma * gamma;
-  fraccion = (num1 - num2)/(den1 - den2);
+  fraccion = (num1 - num2) / (den1 - den2);
   return sqrt(fraccion);
 }
 
@@ -39,8 +39,8 @@ double calcular_delta(double k_x, double k_y, double o_x, double o_y) {
 }
 
 double calcular_gamma(double theta, double k_x, double k_y, double o_x, double o_y) {
-  double coef_1 = sin(abs(theta)) * (k_y - o_y);
-  double coef_2 = cos(abs(theta)) * (k_x - o_x);
+  double coef_1 = sin(theta) * (k_y - o_y);
+  double coef_2 = cos(theta) * (k_x - o_x);
   return (coef_1 + coef_2);
 }
 

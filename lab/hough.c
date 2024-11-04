@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <omp.h>
+#include <math.h>
 #include "parametrizacion.h"
 #include "nodo.h"
 #include "lectura.h"
@@ -80,7 +81,7 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
           if (u == t) {
             continue;
           }
-          int* voto = (int*) calloc(betas, sizeof(int));
+          int* voto = (int*) calloc(betas * 2, sizeof(int));
 
           // Se calculan los parámetros
           double oX, oY, alpha, theta;
@@ -108,13 +109,17 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
 
                 // Se calcula beta, se comprueba si es valido y se discretiza
                 double beta = calcular_beta(alpha, delta, gamma);
-                int comprobacion = comprobacion_elipse(oX, oY, theta, alpha, beta,pixeles_borde[k].x, pixeles_borde[k].y);
-                if(comprobacion == 0){
+                if (isnan(beta)) {
                   continue;
                 }
+                //int comprobacion = comprobacion_elipse(oX, oY, theta, alpha, beta,pixeles_borde[k].x, pixeles_borde[k].y);
+                //if(comprobacion == 0){
+                //  continue;
+                //}
                 
                 double delta_beta = calcular_delta_beta(largo_img, betas);
                 int beta_discreto = discretizacion(delta_beta, beta);
+                //printf("beat_discreto: %d/%d, beta: %f\n",beta_discreto,betas*2, gamma);
                 // Se realiza la votación
                 #pragma omp critical(votacion)
                 {
@@ -123,12 +128,13 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
               }
           }
           double delta_beta_1 = calcular_delta_beta(largo_img, betas);
-          for(int i = 0 ; i < betas ; i++){
-            if(voto[i] < porcentaje*largo || voto[i] <= 0){
+          for(int i = 1 ; i < betas ; i++){
+            double beta_i = i * delta_beta_1;
+            if (voto[i] <= porcentaje * (beta_i + alpha) * 3.14) {
               continue;
             }
-            double beta_i = i * delta_beta_1;
-            Elipse* elipse = crear_elipse(oX, oY, alpha, theta, beta_i);
+            // TODO: VERIFICAR SI LO DEJAMOS EN RADIANES O GRADOS
+            Elipse* elipse = crear_elipse(oX, oY, alpha, theta * (180.0/3.1415), beta_i);
             #pragma omp critical(append_elipse)
             {
               new_elipses = agregar_cabeza(new_elipses, elipse);
