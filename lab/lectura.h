@@ -13,7 +13,7 @@ typedef struct data {
 }Data;
 
 Data* leer_fits(char* imagen);
-Data* leer_fits_paralelo(char* imagen);
+Data* leer_fits_paralelo(char* imagen, int hebras_1);
 Pixel crear_pixel(int x, int y);
 
 #endif /* LECTURA_H */ 

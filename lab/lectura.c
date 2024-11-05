@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fitsio.h>
+#include <omp.h>
 #include "lectura.h"
 
 Data* leer_fits(char* imagen) {
@@ -43,11 +44,11 @@ Data* leer_fits(char* imagen) {
   info->largo = naxes[0];
   info->pixeles_borde = pixeles_borde;
   info->largo_arreglo = count;
-
+  fits_close_file(fptr, &status);
   return info;
 }
 // TODO: Adaptar a paralelismo en el for
-Data* leer_fits_paralelo(char* imagen) {
+Data* leer_fits_paralelo(char* imagen, int hebras_1) {
   fitsfile *fptr, *gptr; /* pointer to the FITS file; defined in fitsio.h */
   int status;
   long fpixel=1, naxis = 2, nelements, exposure;
@@ -72,21 +73,25 @@ Data* leer_fits_paralelo(char* imagen) {
   //Pixel* pixeles_borde[count];
   Pixel* pixeles_borde = (Pixel*) malloc(sizeof(Pixel) * count);
   int count_1 = 0;
-
-  for (i = 0 ; i < naxes[1] ; i++) {
-    for (j = 0 ; j < naxes[0] ; j++) {
-      if(myimage[j * naxes[0] + i] == 255.0) {
-        pixeles_borde[count_1] = crear_pixel(i,j);
-        count_1++;
+  #pragma omp parallel num_threads(hebras_1)
+  {
+    #pragma omp for
+      for (i = 0 ; i < naxes[1] ; i++) {
+        for (j = 0 ; j < naxes[0] ; j++) {
+          if(myimage[j * naxes[0] + i] == 255.0) {
+            #pragma omp critical(append_pixel)
+              pixeles_borde[count_1] = crear_pixel(i,j);
+              count_1++;
+          }
+        }
       }
-    }
   }
   Data* info = (Data*) malloc(sizeof(Data));
   info->ancho = naxes[1];
   info->largo = naxes[0];
   info->pixeles_borde = pixeles_borde;
   info->largo_arreglo = count;
-
+  fits_close_file(fptr, &status);
   return info;
 }
 
