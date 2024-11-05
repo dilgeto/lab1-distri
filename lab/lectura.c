@@ -26,7 +26,6 @@ Data* leer_fits(char* imagen) {
       count++;
   }
   
-  //  Pixel* pixeles_borde[count];
   Pixel* pixeles_borde = (Pixel*) malloc(sizeof(Pixel) * count);
 
   int count_1 = 0;
@@ -70,22 +69,25 @@ Data* leer_fits_paralelo(char* imagen, int hebras_1) {
       count++;
     }
   }
-  //Pixel* pixeles_borde[count];
+
   Pixel* pixeles_borde = (Pixel*) malloc(sizeof(Pixel) * count);
   int count_1 = 0;
-  #pragma omp parallel num_threads(hebras_1)
-  {
-    #pragma omp for
-      for (i = 0 ; i < naxes[1] ; i++) {
-        for (j = 0 ; j < naxes[0] ; j++) {
-          if(myimage[j * naxes[0] + i] == 255.0) {
-            #pragma omp critical(append_pixel)
-              pixeles_borde[count_1] = crear_pixel(i,j);
-              count_1++;
-          }
+
+  #pragma omp parallel for num_threads(hebras_1) shared(count_1)
+  for (int i = 0; i < naxes[1]; i++) {
+    for (int j = 0; j < naxes[0]; j++) {
+      if (myimage[j * naxes[0] + i] == 255.0) {
+        #pragma omp critical
+        {
+          pixeles_borde[count_1] = crear_pixel(i, j);
+          count_1++;
         }
       }
+    }
   }
+  
+
+
   Data* info = (Data*) malloc(sizeof(Data));
   info->ancho = naxes[1];
   info->largo = naxes[0];

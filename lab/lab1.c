@@ -66,41 +66,62 @@ int main(int argc, char *argv[]) {
   }
 
   // Inicio del timer
-  clock_t inicio, fin_lectura, fin_procesado, fin;
-  double tiempo_lectura, tiempo_procesado, tiempo_total;
+  struct timespec inicio_monohebra, inicio_hough_monohebra, inicio_paralelo, inicio_hough_paralelo, fin_hough_paralelo;
+  double tiempo_hough_monohebra, tiempo_hough_paralelo, tiempo_proceso_monohebra, tiempo_proceso_paralelo;
 
-  inicio = clock();
+  // 1 SOLA HEBRA
 
-  // TODO: Llamar a leer_fits(Faltan detalles dentro de leer_fits)
-  Data* info_img = leer_fits(imagen);
+  clock_gettime(CLOCK_MONOTONIC, &inicio_monohebra);
+
+  // Llamar a leer_fits
+  Data* info_img = leer_fits_paralelo(imagen, 1);
   Pixel* pixeles_borde = info_img->pixeles_borde;
   long ancho = info_img->ancho;
   long largo = info_img->largo;
   int largo_arreglo = info_img->largo_arreglo;
 
-  fin_lectura = clock();
-  
-  // TODO: Algoritmo de Hough 
-  printf("prefuncado\n");
-  Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, u, d, a, r, b);
-  printf("funcando\n");
-  
-  fin_procesado = clock();
+  clock_gettime(CLOCK_MONOTONIC, &inicio_hough_monohebra);
 
-  while(lista_elipses->next != NULL){
-    printf("%f %f %f %d %f\n", lista_elipses->elipse->o_x,lista_elipses->elipse->o_y,lista_elipses->elipse->alpha,lista_elipses->elipse->beta_i,lista_elipses->elipse->theta);
-    lista_elipses = lista_elipses->next;
+  // Algoritmo de Hough con 1 hebra
+  Nodo* lista_elipses = votacion_paralela(pixeles_borde, ancho, largo, largo_arreglo, 1, 1, a, r, b);
+  free(lista_elipses);
+
+  // PARALELISMO
+  
+  clock_gettime(CLOCK_MONOTONIC, &inicio_paralelo);
+  
+  // Llamar a leer_fits
+  Data* info_img_p = leer_fits_paralelo(imagen, u);
+  Pixel* pixeles_borde_p = info_img->pixeles_borde;
+  long ancho_p = info_img_p->ancho;
+  long largo_p = info_img_p->largo;
+  int largo_arreglo_p = info_img_p->largo_arreglo;
+
+  clock_gettime(CLOCK_MONOTONIC, &inicio_hough_paralelo);
+
+  // Algoritmo de Hough con paralelismo
+  Nodo* lista_elipses_p = votacion_paralela(pixeles_borde_p, ancho_p, largo_p, largo_arreglo_p, u, d, a, r, b);
+  
+  clock_gettime(CLOCK_MONOTONIC, &fin_hough_paralelo);
+
+  while (lista_elipses_p->next != NULL) {
+    printf("%f %f %f %f %f\n", lista_elipses_p->elipse->o_x,lista_elipses_p->elipse->o_y,lista_elipses_p->elipse->alpha,(double)lista_elipses_p->elipse->beta_i,lista_elipses_p->elipse->theta);
+    lista_elipses_p = lista_elipses_p->next;
   }
 
-  fin = clock();
+  // Calculo de los tiempos
+  tiempo_hough_monohebra = (inicio_paralelo.tv_sec - inicio_hough_monohebra.tv_sec) + (inicio_paralelo.tv_nsec - inicio_hough_monohebra.tv_nsec) / 1e9;
+  tiempo_hough_paralelo = (fin_hough_paralelo.tv_sec - inicio_hough_paralelo.tv_sec) + (fin_hough_paralelo.tv_nsec - inicio_hough_paralelo.tv_nsec) / 1e9;
+  tiempo_proceso_monohebra = (inicio_paralelo.tv_sec - inicio_monohebra.tv_sec) + (inicio_paralelo.tv_nsec - inicio_monohebra.tv_nsec) / 1e9;
+  tiempo_proceso_paralelo = (fin_hough_paralelo.tv_sec - inicio_paralelo.tv_sec) + (fin_hough_paralelo.tv_nsec - inicio_paralelo.tv_nsec) / 1e9;
 
-  tiempo_lectura = ((double)(fin_lectura - inicio)) / CLOCKS_PER_SEC;
-  tiempo_procesado = ((double)(fin_procesado - fin_lectura)) / CLOCKS_PER_SEC;
-  tiempo_total = ((double)(fin - inicio)) / CLOCKS_PER_SEC;
-
-  printf("Tiempo lectura:   %f segundos\n", tiempo_lectura);
-  printf("Tiempo procesado: %f segundos\n", tiempo_procesado);
-  printf("Tiempo total:     %f segundos\n", tiempo_total);
+  printf("%f\n", tiempo_proceso_monohebra);
+  printf("%f\n", tiempo_proceso_paralelo);
+  //printf("%f\%\n", porcion_serial);
+  //printf("%f\n", speedup_proceso);
+  printf("%f\n", tiempo_hough_monohebra);
+  printf("%f\n", tiempo_hough_paralelo);
+  //printf("%f\n", speedup_hough);
 
   return 0;
 }

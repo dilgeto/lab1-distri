@@ -7,7 +7,7 @@ hough.o: hough.c parametrizacion.o
 parametrizacion.o: parametrizacion.c
 	gcc $(FLAGS) -c parametrizacion.c -lm 
 lectura.o: lectura.c
-	gcc $(FLAGS) -c lectura.c -lcfitsio
+	gcc $(FLAGS) -c lectura.c -lcfitsio -fopenmp
 nodo.o: nodo.c elipse.o
 	gcc $(FLAGS) -c nodo.c elipse.o
 elipse.o: elipse.c
