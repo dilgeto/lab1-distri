@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
   clock_gettime(CLOCK_MONOTONIC, &fin_hough_paralelo);
 
   while (lista_elipses_p->next != NULL) {
-    printf("%f %f %f %f %f\n", lista_elipses_p->elipse->o_x,lista_elipses_p->elipse->o_y,lista_elipses_p->elipse->alpha,(double)lista_elipses_p->elipse->beta_i,lista_elipses_p->elipse->theta);
+    printf("%f  %f  %f  %f  %f\n", lista_elipses_p->elipse->o_x,lista_elipses_p->elipse->o_y,lista_elipses_p->elipse->alpha,(double)lista_elipses_p->elipse->beta_i,lista_elipses_p->elipse->theta);
     lista_elipses_p = lista_elipses_p->next;
   }
 
