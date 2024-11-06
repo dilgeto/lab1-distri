@@ -104,6 +104,7 @@ int main(int argc, char *argv[]) {
   
   clock_gettime(CLOCK_MONOTONIC, &fin_hough_paralelo);
 
+  printf("\nhebra1: %d, hebra2: %d\n",u, d);
   while (lista_elipses_p->next != NULL) {
     printf("%f  %f  %f  %f  %f\n", lista_elipses_p->elipse->o_x,lista_elipses_p->elipse->o_y,lista_elipses_p->elipse->alpha,(double)lista_elipses_p->elipse->beta_i,lista_elipses_p->elipse->theta);
     lista_elipses_p = lista_elipses_p->next;
@@ -116,7 +117,7 @@ int main(int argc, char *argv[]) {
   tiempo_proceso_paralelo = (fin_hough_paralelo.tv_sec - inicio_paralelo.tv_sec) + (fin_hough_paralelo.tv_nsec - inicio_paralelo.tv_nsec) / 1e9;
 
   double porcion_serial, speedup_proceso, speedup_hough;
-  porcion_serial = 30.0;
+  porcion_serial = 65.5;
   speedup_proceso = tiempo_proceso_monohebra / tiempo_proceso_paralelo;
   speedup_hough = tiempo_hough_monohebra / tiempo_hough_paralelo;
 

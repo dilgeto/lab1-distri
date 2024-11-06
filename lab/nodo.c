@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "nodo.h"
+
 /* Constructor inicial de lista*/
 Nodo* inicializar_lista() {
   Nodo* lista = (Nodo*) malloc(sizeof(Nodo));

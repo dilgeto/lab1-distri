@@ -9,7 +9,7 @@
 
 /*
  * Descripcion: Implementacion de algoritmo Hough con paralelismo de dos niveles
- * Entradas: Arreglo de struncts con pixeles borde, ancho y largo imagen, largo arreglo de pixeles, cantidad hebras nivel 1 y 2, alpha minimo, porcentaje minimo de circurferencia
+ * Entradas: Arreglo de structs con pixeles borde, ancho y largo imagen, largo arreglo de pixeles, cantidad hebras nivel 1 y 2, alpha minimo, porcentaje minimo de circurferencia
  * y cantidad de intervalos de betas.
  * Salidas: Lista enlazada de elipses selectos.
  */
