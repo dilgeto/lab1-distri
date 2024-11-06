@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include "elipse.h"
-
+/* Constructor de struct de elipses*/
 Elipse* crear_elipse(double o_x, double o_y, double alpha, double theta, int beta_i) {
   Elipse* elipse = (Elipse*) malloc(sizeof(Elipse));
   elipse->o_x = o_x;

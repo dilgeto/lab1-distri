@@ -7,7 +7,12 @@
 #include "lectura.h"
 #include "elipse.h"
 
-// Implementación del algoritmo de Hough con paralelismo
+/*
+ * Descripcion: Implementacion de algoritmo Hough con paralelismo de dos niveles
+ * Entradas: Arreglo de struncts con pixeles borde, ancho y largo imagen, largo arreglo de pixeles, cantidad hebras nivel 1 y 2, alpha minimo, porcentaje minimo de circurferencia
+ * y cantidad de intervalos de betas.
+ * Salidas: Lista enlazada de elipses selectos.
+ */
 Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int largo,int hebras_1, int hebras_2, double min_alpha, double porcentaje, int betas) {
   int t, u, k;
   Nodo* new_elipses = inicializar_lista();
@@ -46,12 +51,12 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 }
                 double gamma = calcular_gamma(theta, pixeles_borde[k].x, pixeles_borde[k].y, oX, oY);
 
-                // Se calcula beta, se comprueba si es valido y se discretiza
+                // Se calcula beta y se comprueba si es valido
                 double beta = calcular_beta(alpha, delta, gamma);
                 if (isnan(beta)) {
                   continue;
                 }
-                
+                //Discretizacion de beta.
                 double delta_beta = calcular_delta_beta(largo_img, betas);
                 int beta_discreto = discretizacion(delta_beta, beta);
                 // Se realiza la votación
@@ -61,7 +66,7 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
                 }
               }
           }
-
+          //Comprobacion de porcentaje de circunferencia y creacion de elipses selectos.
           double delta_beta_1 = calcular_delta_beta(largo_img, betas);
           for(int i = 1 ; i < betas ; i++){
             double beta_i = i * delta_beta_1;

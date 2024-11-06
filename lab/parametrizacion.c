@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "parametrizacion.h"
 
+// Las siguientes funciones representan los calculos según formulas proporcionadas en el paper/enunciado
 double o_x(double t_x, double u_x) {
   return (t_x + u_x) / 2.0;
 }
@@ -60,19 +61,6 @@ double* calcular_v(double o_x, double o_y, double alpha, double beta, double the
   resultados[0] = v_x;
   resultados[1] = v_y;
   return resultados;
-}
-
-int comprobacion_elipse(double o_x, double o_y, double theta, double alpha, double beta, int k_x, int k_y) {
-  double* w = calcular_w(o_x, o_y, alpha, beta, theta);
-  double* v = calcular_v(o_x, o_y, alpha, beta, theta);
-  double largo_w = sqrt((k_y-w[1])*(k_y-w[1])+(k_x-w[0])*(k_x-w[0]));
-  double largo_v = sqrt((k_y-v[1])*(k_y-v[1])+(k_x-v[0])*(k_x-v[0]));
-  double largo_segmento = largo_w + largo_v;
-  if(largo_segmento == 2*alpha){
-    return 1;
-  }else{
-    return 0;
-  }
 }
 
 double calcular_delta_beta(int N, int B) {
