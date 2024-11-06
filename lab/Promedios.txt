@@ -1,0 +1,35 @@
+tiempo_proceso_monohebra_promedio: 0.09298
+tiempo_hough_monohebra_promedio: 0.09191
+tiempo_proceso_multihebra_promedio:
+hebra1: 2, hebra2: 1 -> Promedio tiempo total proceso: 0.09400, Promedio speedup proceso: 0.98000, Promedio tiempo hough: 0.09300, Promedio speedup hough: 0.97667
+hebra1: 3, hebra2: 1 -> Promedio tiempo total proceso: 0.09533, Promedio speedup proceso: 0.96667, Promedio tiempo hough: 0.09467, Promedio speedup hough: 0.95667
+hebra1: 4, hebra2: 1 -> Promedio tiempo total proceso: 0.09767, Promedio speedup proceso: 0.93667, Promedio tiempo hough: 0.09733, Promedio speedup hough: 0.93000
+hebra1: 5, hebra2: 1 -> Promedio tiempo total proceso: 0.12933, Promedio speedup proceso: 0.72667, Promedio tiempo hough: 0.12867, Promedio speedup hough: 0.72000
+hebra1: 6, hebra2: 1 -> Promedio tiempo total proceso: 0.16133, Promedio speedup proceso: 0.57000, Promedio tiempo hough: 0.16100, Promedio speedup hough: 0.57000
+hebra1: 7, hebra2: 1 -> Promedio tiempo total proceso: 0.16033, Promedio speedup proceso: 0.57667, Promedio tiempo hough: 0.15933, Promedio speedup hough: 0.57333
+hebra1: 8, hebra2: 1 -> Promedio tiempo total proceso: 0.16200, Promedio speedup proceso: 0.56333, Promedio tiempo hough: 0.16200, Promedio speedup hough: 0.56000
+hebra1: 9, hebra2: 1 -> Promedio tiempo total proceso: 0.18067, Promedio speedup proceso: 0.51667, Promedio tiempo hough: 0.17967, Promedio speedup hough: 0.51000
+hebra1: 10, hebra2: 1 -> Promedio tiempo total proceso: 0.18500, Promedio speedup proceso: 0.49667, Promedio tiempo hough: 0.18433, Promedio speedup hough: 0.49333
+hebra1: 11, hebra2: 1 -> Promedio tiempo total proceso: 0.21900, Promedio speedup proceso: 0.42000, Promedio tiempo hough: 0.21833, Promedio speedup hough: 0.42000
+hebra1: 12, hebra2: 1 -> Promedio tiempo total proceso: 0.36967, Promedio speedup proceso: 0.25000, Promedio tiempo hough: 0.36867, Promedio speedup hough: 0.25000
+hebra1: 1, hebra2: 2 -> Promedio tiempo total proceso: 0.24867, Promedio speedup proceso: 0.36667, Promedio tiempo hough: 0.24800, Promedio speedup hough: 0.36667
+hebra1: 1, hebra2: 3 -> Promedio tiempo total proceso: 0.38100, Promedio speedup proceso: 0.24333, Promedio tiempo hough: 0.38067, Promedio speedup hough: 0.24000
+hebra1: 1, hebra2: 4 -> Promedio tiempo total proceso: 0.50500, Promedio speedup proceso: 0.18333, Promedio tiempo hough: 0.50433, Promedio speedup hough: 0.18000
+hebra1: 1, hebra2: 5 -> Promedio tiempo total proceso: 0.62600, Promedio speedup proceso: 0.14667, Promedio tiempo hough: 0.62567, Promedio speedup hough: 0.14333
+hebra1: 1, hebra2: 6 -> Promedio tiempo total proceso: 0.84367, Promedio speedup proceso: 0.11000, Promedio tiempo hough: 0.84267, Promedio speedup hough: 0.11000
+hebra1: 1, hebra2: 7 -> Promedio tiempo total proceso: 1.13267, Promedio speedup proceso: 0.08000, Promedio tiempo hough: 1.13200, Promedio speedup hough: 0.08000
+hebra1: 1, hebra2: 8 -> Promedio tiempo total proceso: 1.43200, Promedio speedup proceso: 0.06000, Promedio tiempo hough: 1.43200, Promedio speedup hough: 0.06000
+hebra1: 1, hebra2: 9 -> Promedio tiempo total proceso: 1.77833, Promedio speedup proceso: 0.05333, Promedio tiempo hough: 1.77767, Promedio speedup hough: 0.05333
+hebra1: 1, hebra2: 10 -> Promedio tiempo total proceso: 2.23467, Promedio speedup proceso: 0.04000, Promedio tiempo hough: 2.23433, Promedio speedup hough: 0.04000
+hebra1: 2, hebra2: 2 -> Promedio tiempo total proceso: 0.24500, Promedio speedup proceso: 0.38000, Promedio tiempo hough: 0.24400, Promedio speedup hough: 0.38000
+hebra1: 2, hebra2: 3 -> Promedio tiempo total proceso: 0.38033, Promedio speedup proceso: 0.24000, Promedio tiempo hough: 0.38000, Promedio speedup hough: 0.24000
+hebra1: 2, hebra2: 4 -> Promedio tiempo total proceso: 0.49350, Promedio speedup proceso: 0.19000, Promedio tiempo hough: 0.49250, Promedio speedup hough: 0.18500
+hebra1: 2, hebra2: 5 -> Promedio tiempo total proceso: 0.64750, Promedio speedup proceso: 0.14500, Promedio tiempo hough: 0.64650, Promedio speedup hough: 0.14000
+hebra1: 2, hebra2: 6 -> Promedio tiempo total proceso: 1.31350, Promedio speedup proceso: 0.07000, Promedio tiempo hough: 1.31350, Promedio speedup hough: 0.07000
+hebra1: 3, hebra2: 2 -> Promedio tiempo total proceso: 0.23350, Promedio speedup proceso: 0.48500, Promedio tiempo hough: 0.23300, Promedio speedup hough: 0.48500
+hebra1: 3, hebra2: 3 -> Promedio tiempo total proceso: 0.33800, Promedio speedup proceso: 0.27000, Promedio tiempo hough: 0.33750, Promedio speedup hough: 0.27000
+hebra1: 3, hebra2: 4 -> Promedio tiempo total proceso: 0.51850, Promedio speedup proceso: 0.18500, Promedio tiempo hough: 0.51800, Promedio speedup hough: 0.18000
+hebra1: 4, hebra2: 2 -> Promedio tiempo total proceso: 0.20900, Promedio speedup proceso: 0.44500, Promedio tiempo hough: 0.20900, Promedio speedup hough: 0.44000
+hebra1: 4, hebra2: 3 -> Promedio tiempo total proceso: 0.39100, Promedio speedup proceso: 0.24000, Promedio tiempo hough: 0.39100, Promedio speedup hough: 0.24000
+hebra1: 5, hebra2: 2 -> Promedio tiempo total proceso: 0.24650, Promedio speedup proceso: 0.38000, Promedio tiempo hough: 0.24550, Promedio speedup hough: 0.37500
+hebra1: 6, hebra2: 2 -> Promedio tiempo total proceso: 0.23950, Promedio speedup proceso: 0.39000, Promedio tiempo hough: 0.23850, Promedio speedup hough: 0.39000
