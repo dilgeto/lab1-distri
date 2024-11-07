@@ -12,12 +12,12 @@ def calcular_promedios_por_combinacion(archivo):
     with open(archivo, 'r') as file:
         lineas = file.readlines()
         for i, linea in enumerate(lineas):
-            if "hebra1" in linea:
+            if "hebras1" in linea:
                 # Extraer hebra1 y hebra2
                 partes = linea.strip().split(", ")
-                hebra1 = partes[0].split(": ")[1]
-                hebra2 = partes[1].split(": ")[1]
-                combinacion = f"hebra1: {hebra1}, hebra2: {hebra2}"
+                hebras1 = partes[0].split(": ")[1]
+                hebras2 = partes[1].split(": ")[1]
+                combinacion = f"hebras1: {hebras1}, hebras2: {hebras2}"
 
                 # Capturar el segundo, tercer, quinto y sexto número en las siguientes líneas
                 try:
@@ -46,7 +46,7 @@ def calcular_promedios_por_combinacion(archivo):
 
 # Usar la función y mostrar los resultados
 archivo = 'ruta_al_archivo.txt'
-promedios = calcular_promedios_por_combinacion("resultados.txt")
+promedios = calcular_promedios_por_combinacion("resultados_simple.txt")
 for combinacion, (promedio_segundo, promedio_tercero, promedio_quinto, promedio_sexto) in promedios.items():
     print(f"{combinacion} -> Promedio del segundo número: {promedio_segundo:.5f}, "
           f"Promedio del tercer número: {promedio_tercero:.5f}, "

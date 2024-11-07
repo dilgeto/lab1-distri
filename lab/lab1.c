@@ -106,30 +106,28 @@ int main(int argc, char *argv[]) {
   
   clock_gettime(CLOCK_MONOTONIC, &fin_hough_paralelo);
 
-  /*
+  
   while (lista_elipses_p->next != NULL) {
     printf("%f  %f  %f  %f  %f\n", lista_elipses_p->elipse->o_x,lista_elipses_p->elipse->o_y,lista_elipses_p->elipse->alpha,(double)lista_elipses_p->elipse->beta_i,lista_elipses_p->elipse->theta);
     lista_elipses_p = lista_elipses_p->next;
   }
-  */
-
+  
   // Calculo de los tiempos
   tiempo_hough_monohebra = (inicio_paralelo.tv_sec - inicio_hough_monohebra.tv_sec) + (inicio_paralelo.tv_nsec - inicio_hough_monohebra.tv_nsec) / 1e9;
   tiempo_hough_paralelo = (fin_hough_paralelo.tv_sec - inicio_hough_paralelo.tv_sec) + (fin_hough_paralelo.tv_nsec - inicio_hough_paralelo.tv_nsec) / 1e9;
   tiempo_proceso_monohebra = (inicio_paralelo.tv_sec - inicio_monohebra.tv_sec) + (inicio_paralelo.tv_nsec - inicio_monohebra.tv_nsec) / 1e9;
   tiempo_proceso_paralelo = (fin_hough_paralelo.tv_sec - inicio_paralelo.tv_sec) + (fin_hough_paralelo.tv_nsec - inicio_paralelo.tv_nsec) / 1e9;
-
-  double speedup_proceso, speedup_hough;
-  //porcion_serial = 65.5;
+  
+  double porcion_serial,speedup_proceso, speedup_hough;
+  porcion_serial = 65.5;
   speedup_proceso = tiempo_proceso_monohebra / tiempo_proceso_paralelo;
   speedup_hough = tiempo_hough_monohebra / tiempo_hough_paralelo;
 
-  printf("\nhebras1: %d, hebras2: %d\n", u, d);
-  printf("%f\n", tiempo_proceso_monohebra);
+  printf("%.3f\n", tiempo_proceso_monohebra);
   printf("%.3f\n", tiempo_proceso_paralelo);
-  //printf("%f%%\n", porcion_serial);
+  printf("%f%%\n", porcion_serial);
   printf("%.2f\n", speedup_proceso);
-  printf("%f\n", tiempo_hough_monohebra);
+  printf("%.3f\n", tiempo_hough_monohebra);
   printf("%.3f\n", tiempo_hough_paralelo);
   printf("%.2f\n", speedup_hough);
 
