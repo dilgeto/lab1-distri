@@ -25,7 +25,6 @@ Nodo* votacion_paralela(Pixel* pixeles_borde, long ancho, long largo_img, int la
 
     #pragma omp for
     for (t = 0; t < largo; t++) {
-      printf("Va en el punto: %d/%d\n", t, largo);
       for (u = 0; u < largo; u++) {
         if (u == t) continue;
 
