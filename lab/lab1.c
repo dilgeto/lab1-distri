@@ -102,7 +102,6 @@ int main(int argc, char *argv[]) {
 
   // Algoritmo de Hough con paralelismo
   Nodo* lista_elipses_p = votacion_paralela(pixeles_borde_p, ancho_p, largo_p, largo_arreglo_p, u, d, a, r, b);
-  free(lista_elipses_p);
   
   clock_gettime(CLOCK_MONOTONIC, &fin_hough_paralelo);
 
